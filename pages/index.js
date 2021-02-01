@@ -15,7 +15,7 @@ export default function Home({ allPostsData }) {
         <p>こんにちは！magakoのブログです。</p>
         <p>都内の会社で社内SEとして業務をしています！</p>
         <p>Webアプリケーション開発や開発手法など調べたことを発信していきます。</p>
-        <p>下記の記事をみていただけると嬉しいです！！</p>
+        <p>下記の記事もみていただけると嬉しいです！！</p>
 
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
