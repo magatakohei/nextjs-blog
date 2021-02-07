@@ -3,8 +3,15 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
+import Markdown from "markdown-to-jsx";
+import Prism from "prismjs";
+import { useEffect } from "react";
 
 export default function Post({ postData }) {
+  useEffect(() => {
+    Prism.highlightAll()
+  }, [])
+
   return (
     <Layout>
       <Head>
@@ -15,7 +22,7 @@ export default function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <Markdown>{postData.contentHtml}</Markdown>
       </article>
     </Layout>
   )
