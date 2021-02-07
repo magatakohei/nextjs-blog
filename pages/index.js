@@ -11,7 +11,7 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section className={utilStyles.headingS}>
         <p>こんにちは！magakoのブログです。</p>
         <p>都内の会社で社内SEとして業務をしています！</p>
         <p>Webアプリケーション開発や開発手法など調べたことを発信していきます。</p>
