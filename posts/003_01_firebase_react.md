@@ -328,3 +328,186 @@ export default App;
 <img src="/article_images/003/add_task.webp"/>
 
 ## FireStore のデータの更新・削除
+
+### Task をコンポーネントに分解
+
+1. まずはこれまで App.tsx から Task コンポーネントを分解します。
+2. src フォルダの直下に TaskItem.tsx を作成します。
+
+```typescript
+import Reactfrom "react";
+import { ListItem } from "@material-ui/core";
+
+
+interface PROPS {
+  id: string;
+  title: string;
+}
+
+export const TaskItem: React.FC<PROPS> = (props) => {
+  return (
+    <ListItem>
+      <h2>{props.title}</h2>
+    </ListItem>
+  )
+}
+```
+
+App.tsx にあったタスクの表示を切り出しただけなので、大丈夫ですよね。 3. App.tsx から TaskItem コンポーネントを呼び出します。
+
+```typescript
+import { FormControl, TextField } from "@material-ui/core";
+import AddToPhotoicons from "@material-ui/icons/AddToPhotos";
+import React, { useState, useEffect } from 'react';
+import { db } from "./firebase";
+import {TaskItem} from "./TaskItem";
+import './App.css';
+
+~~~
+
+  return (
+    <div className="App">
+      <h1>Todo App by React/Firebase</h1>
+      <FormControl>
+        <TextField
+          InputLabelProps={{
+            shrink:true
+          }}
+          label="new task?"
+          value={input}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
+            setInput(e.target.value)
+          }
+        />
+      </FormControl>
+      <button disabled={!input} onClick={newTask}>
+        <AddToPhotoicons/>
+      </button>
+      {tasks.map(task => (
+        <TaskItem key={task.id} id={task.id} title={task.title}></TaskItem>
+      ))}
+    </div>
+  );
+}
+
+export default App;
+```
+
+TaskItem をインポートして、map のなかを TaskItem に書き換えています。
+
+### 更新処理を追加
+
+1. TaskItem.tsx を変更して更新処理を追加していきます。
+
+```typescript
+import React, { useState } from "react";
+import { ListItem, TextField, Grid } from "@material-ui/core";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import { db } from "./firebase";
+
+interface PROPS {
+  id: string;
+  title: string;
+}
+
+export const TaskItem: React.FC<PROPS> = (props) => {
+  const [title, setTitle] = useState(props.title);
+
+  const editTask = () => {
+    db.collection("tasks").doc(props.id).set({ title: title }, { merge: true });
+  };
+
+  return (
+    <ListItem>
+      <h2>{props.title}</h2>
+      <Grid container justify="flex-end">
+        <TextField
+          InputLabelProps={{
+            shrink: true,
+          }}
+          label="Edit task"
+          value={title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTitle(e.target.value)
+          }
+        />
+      </Grid>
+
+      <button onClick={editTask}>
+        <EditOutlinedIcon />
+      </button>
+    </ListItem>
+  );
+};
+```
+
+**解説**
+
+- material-ui から編集アイコンを使用するため、インポートします。
+- 編集時の入力をするため、title を state として宣言します。
+- TextField 蘭を準備して、入力を受け取るようにします。入力欄は Grid で右端に寄せます。
+- **editTask**の中で更新処理を書きます。
+  db.collection(コレクション名).doc(ドキュメントの ID).set({変更するキーと値},{merge:true})
+  とする事で指定した値のみ更新することができます。
+
+### 削除処理を追加
+
+1. TaskItem.tsx を以下のように書き換えます。
+
+```typescript
+import React, { useState } from "react";
+import { ListItem, TextField, Grid } from "@material-ui/core";
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import { db } from "./firebase";
+
+interface PROPS {
+  id: string;
+  title: string;
+}
+
+export const TaskItem: React.FC<PROPS> = (props) => {
+  const [title, setTitle] = useState(props.title);
+
+  const editTask = () => {
+    db.collection("tasks").doc(props.id).set({ title: title }, { merge: true });
+  };
+
+  const deleteTask = () => {
+    db.collection("tasks").doc(props.id).delete();
+  };
+
+  return (
+    <ListItem>
+      <h2>{props.title}</h2>
+      <Grid container justify="flex-end">
+        <TextField
+          InputLabelProps={{
+            shrink: true,
+          }}
+          label="Edit task"
+          value={title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTitle(e.target.value)
+          }
+        />
+      </Grid>
+
+      <button onClick={editTask}>
+        <EditOutlinedIcon />
+      </button>
+
+      <button onClick={deleteTask}>
+        <DeleteOutlineOutlinedIcon />
+      </button>
+    </ListItem>
+  );
+};
+```
+
+**解説**
+
+- material-ui から削除アイコンを使用するため、インポートします。
+- **deleteTask**の中で削除処理を書きます。
+  db.collection(コレクション名).doc(ドキュメントの ID).delete();
+  とする事で指定したドキュメントを削除することができます。
