@@ -1,6 +1,6 @@
 ---
 title: "React+FirebaseでTodoアプリを作成"
-date: "2021-02-08"
+createdDate: "2021-02-08"
 ---
 
 こんにちは、Magako です！今回は、Firebase と React を利用して Todo アプリを作成してみました。
@@ -326,3 +326,5 @@ export default App;
 
 下記の画像のようにデータが入力ボックスから、Task の追加ができれば成功です！
 <img src="/article_images/003/add_task.webp"/>
+
+## FireStore のデータの更新・削除
