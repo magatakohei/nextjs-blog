@@ -3,7 +3,7 @@ title: "React+FirebaseでTodoアプリを作成"
 createdDate: "2021-02-08"
 ---
 
-こんにちは、Magako です！今回は、Firebase と React を利用して Todo アプリを作成してみました。
+今回は、Firebase と React を利用して Todo アプリを作成してみました。
 
 [Kazu.T さんの Udemy 講座](https://www.udemy.com/course/firebasereact-hookstypescript-todo/)を参考にして作らせて頂きました。
 無料の講座で分かりやすいのでおすすめです。
@@ -53,7 +53,7 @@ yarn add react-router-dom @types/react-router-dom
 
 ## Firebase にプロジェクトの作成
 
-1. [firebase](https://firebase.google.com/)の公式サイトに移動。
+1. [Firebase](https://firebase.google.com/)の公式サイトに移動。
 2. コンソールに移動をクリック。（Google アカウントでログイン。ない方は作成してください。）
 3. プロジェクトを追加をクリック。
    <img src="/article_images/003/firebase_add_project.webp"/>
@@ -102,7 +102,7 @@ const config = {
   authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  strorageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messageingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
