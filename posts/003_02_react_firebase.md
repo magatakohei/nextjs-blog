@@ -9,7 +9,7 @@ createdDate: "2021-02-13"
 
 1. [Firebase](https://firebase.google.com/)の公式サイトに移動します。
 2. コンソールに移動をクリックしてください。（Google アカウントでログイン。ない方はこちらのページで作成してください。[Google アカウントの作成ページ](https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp)）
-   <img src="/article_images/003/firebase_top_page.webp"/>
+   <img src="/article_images/003/Firebase_top_page.webp"/>
    <br />
 3. コンソールに移動できたら「プロジェクトを追加」をクリックします。
    <img src="/article_images/003/firebase_add_project.webp"/>
